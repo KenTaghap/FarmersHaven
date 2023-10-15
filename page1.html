@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Atlas Data Display</title>
+</head>
+<body>
+    <label>Enter your username:</label>
+    <input type="text" id="Username">
+    
+
+    <br><br>
+
+    
+    <label >lastname:</label>
+    <input type="text" id="Fullname" name="Fullname" readonly>
+    <br>
+    <label >email:</label>
+    <input type="text" id="Email" name="Email" readonly>
+	<br>
+    <label >Password:</label>
+    <input type="text" id="Password" name="Password" readonly>
+
+    <script>
+	
+	 // Add an event listener to the input field
+        document.getElementById('Username').addEventListener('input', fetchData);
+
+        function fetchData() {
+            const Username = document.getElementById('Username').value;
+			
+
+            // Use JavaScript to fetch data from your PHP script with the username
+            fetch(`get_user_info.php?Username=${Username}`)
+                .then(response => response.json())
+                .then(data => {
+                  
+                    document.getElementById('Fullname').value = data.Fullname;
+                    document.getElementById('Email').value = data.Email;
+					document.getElementById('Password').value = data.Password;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
